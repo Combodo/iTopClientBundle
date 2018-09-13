@@ -11,7 +11,6 @@ pipeline {
         sh 'php vendor/bin/phpunit  --log-junit var/test/phpunit-log.junit.xml '
       }
     }
-    
   }
 
   post {

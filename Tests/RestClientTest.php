@@ -72,7 +72,7 @@ class RestClientTest extends TestCase
 
 
         $operation = $this->createOperation($operationVersion, $operationJsonData);
-        $psrResponse = $restClient->getResponseForOperation($operation);
+        $psrResponse = $restClient->getPsrResponseForOperation($operation);
 
         $this->assertInstanceOf(Response::class, $psrResponse);
     }

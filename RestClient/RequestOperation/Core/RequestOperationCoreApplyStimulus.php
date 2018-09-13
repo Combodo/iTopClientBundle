@@ -12,12 +12,15 @@ use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBa
 use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBaseKeyTrait;
 use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBaseStimulusTrait;
 use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBaseTrait;
+use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationClassTrait;
+use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Meta\RequestOperationMetaExposedPropertiesTrait;
 use BrunoDs\ItopClientBundle\RestClient\RequestOperation\OperationInterface;
 
 class RequestOperationCoreApplyStimulus implements OperationInterface
 {
-    use RequestOperationBaseTrait, RequestOperationBaseKeyTrait, RequestOperationBaseFieldsTrait, RequestOperationBaseStimulusTrait {
+    use RequestOperationMetaExposedPropertiesTrait, RequestOperationBaseTrait, RequestOperationClassTrait, RequestOperationBaseKeyTrait, RequestOperationBaseFieldsTrait, RequestOperationBaseStimulusTrait {
         RequestOperationBaseTrait::init as baseInit;
+        RequestOperationClassTrait::init as classInit;
         RequestOperationBaseKeyTrait::init as KeyInit;
         RequestOperationBaseFieldsTrait::init as fieldsInit;
         RequestOperationBaseStimulusTrait::init as stimulusInit;
@@ -28,6 +31,7 @@ class RequestOperationCoreApplyStimulus implements OperationInterface
     public function init()
     {
         $this->baseInit();
+        $this->classInit();
         $this->KeyInit();
         $this->fieldsInit();
         $this->stimulusInit();

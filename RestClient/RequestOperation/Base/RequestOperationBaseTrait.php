@@ -11,7 +11,6 @@ use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Meta\RequestOperationMe
 
 trait RequestOperationBaseTrait
 {
-    use RequestOperationMetaExposedPropertiesTrait;
 
     /** @var string */
     private $version = '1.3';
@@ -19,11 +18,6 @@ trait RequestOperationBaseTrait
     /** @var string */
     private $operation;
 
-    /** @var string */
-    private $class;
-
-    /** @var string */
-    private $outputFields;
 
     /**
      * @uses RequestOperationMetaExposedPropertiesTrait
@@ -31,9 +25,6 @@ trait RequestOperationBaseTrait
     private function init()
     {
         $this->appendExposedProperty('operation');
-        $this->appendExposedProperty('class');
-        $this->appendExposedProperty('outputFields');
-
 
         $this->setOperation(static::OPERATION);
     }
@@ -62,35 +53,4 @@ trait RequestOperationBaseTrait
         $this->operation = $operation;
     }
 
-    /**
-     * @return string
-     */
-    public function getClass(): string
-    {
-        return $this->class;
-    }
-
-    /**
-     * @param string $class
-     */
-    public function setClass(string $class): void
-    {
-        $this->class = $class;
-    }
-
-    /**
-     * @return string
-     */
-    public function getOutputFields(): string
-    {
-        return $this->outputFields;
-    }
-
-    /**
-     * @param string $outputFields
-     */
-    public function setOutputFields(string $outputFields): void
-    {
-        $this->outputFields = $outputFields;
-    }
 }

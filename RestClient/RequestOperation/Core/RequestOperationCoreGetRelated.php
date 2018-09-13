@@ -12,13 +12,16 @@ use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBa
 use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBaseKeyTrait;
 use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBaseRelationsTrait;
 use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBaseTrait;
+use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationClassTrait;
+use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Meta\RequestOperationMetaExposedPropertiesTrait;
 use BrunoDs\ItopClientBundle\RestClient\RequestOperation\OperationInterface;
 
 class RequestOperationCoreGetRelated implements OperationInterface
 {
 
-    use RequestOperationBaseTrait, RequestOperationBaseKeyTrait, RequestOperationBaseFieldsTrait, RequestOperationBaseRelationsTrait {
+    use RequestOperationMetaExposedPropertiesTrait, RequestOperationBaseTrait, RequestOperationClassTrait, RequestOperationBaseKeyTrait, RequestOperationBaseFieldsTrait, RequestOperationBaseRelationsTrait {
         RequestOperationBaseTrait::init as baseInit;
+        RequestOperationClassTrait::init as classInit;
         RequestOperationBaseKeyTrait::init as KeyInit;
         RequestOperationBaseFieldsTrait::init as FieldsInit;
         RequestOperationBaseRelationsTrait::init as RelationsInit;
@@ -28,6 +31,7 @@ class RequestOperationCoreGetRelated implements OperationInterface
     public function init()
     {
         $this->baseInit();
+        $this->classInit();
         $this->KeyInit();
         $this->FieldsInit();
         $this->RelationsInit();

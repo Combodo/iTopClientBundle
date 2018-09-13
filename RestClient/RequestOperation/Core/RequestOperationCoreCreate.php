@@ -11,13 +11,16 @@ namespace BrunoDs\ItopClientBundle\RestClient\RequestOperation\Core;
 use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBaseFieldsTrait;
 use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBaseKeyTrait;
 use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBaseTrait;
+use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationClassTrait;
+use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Meta\RequestOperationMetaExposedPropertiesTrait;
 use BrunoDs\ItopClientBundle\RestClient\RequestOperation\OperationInterface;
 
 class RequestOperationCoreCreate implements OperationInterface
 {
 
-    use RequestOperationBaseTrait, RequestOperationBaseFieldsTrait {
+    use RequestOperationMetaExposedPropertiesTrait, RequestOperationBaseTrait, RequestOperationClassTrait, RequestOperationBaseFieldsTrait {
         RequestOperationBaseTrait::init as baseInit;
+        RequestOperationClassTrait::init as classInit;
         RequestOperationBaseFieldsTrait::init as fieldsInit;
     }
 
@@ -26,6 +29,7 @@ class RequestOperationCoreCreate implements OperationInterface
     public function init()
     {
         $this->baseInit();
+        $this->classInit();
         $this->fieldsInit();
     }
 

@@ -45,7 +45,7 @@ class RestClient
 
     public function executeOperation(OperationInterface $operation): RestResponse
     {
-        $psrResponse = $this->getResponseForOperation($operation);
+        $psrResponse = $this->getPsrResponseForOperation($operation);
 
         $restResponse = new RestResponse($psrResponse);
 
@@ -59,7 +59,7 @@ class RestClient
      * @return Response
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getResponseForOperation(OperationInterface $operation): Response
+    public function getPsrResponseForOperation(OperationInterface $operation): Response
     {
         $psrRequest = $this->createRequestForOperation($operation);
 

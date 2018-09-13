@@ -12,12 +12,15 @@ use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBa
 use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBaseKeyTrait;
 use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBaseSimulateTrait;
 use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBaseTrait;
+use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationClassTrait;
+use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Meta\RequestOperationMetaExposedPropertiesTrait;
 use BrunoDs\ItopClientBundle\RestClient\RequestOperation\OperationInterface;
 
 class RequestOperationCoreDelete implements OperationInterface
 {
-    use RequestOperationBaseTrait, RequestOperationBaseKeyTrait, RequestOperationBaseFieldsTrait, RequestOperationBaseSimulateTrait {
+    use RequestOperationMetaExposedPropertiesTrait, RequestOperationBaseTrait, RequestOperationClassTrait, RequestOperationBaseKeyTrait, RequestOperationBaseFieldsTrait, RequestOperationBaseSimulateTrait {
         RequestOperationBaseTrait::init as baseInit;
+        RequestOperationClassTrait::init as classInit;
         RequestOperationBaseKeyTrait::init as KeyInit;
         RequestOperationBaseFieldsTrait::init as FieldsInit;
         RequestOperationBaseSimulateTrait::init as SimulateInit;
@@ -28,6 +31,7 @@ class RequestOperationCoreDelete implements OperationInterface
     public function init()
     {
         $this->baseInit();
+        $this->classInit();
         $this->KeyInit();
         $this->FieldsInit();
         $this->SimulateInit();
