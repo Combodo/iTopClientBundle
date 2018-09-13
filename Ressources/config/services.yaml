@@ -1,0 +1,4 @@
+services:
+
+  brunods.itopclient.httpclient:
+    class: GuzzleHttp\Client
