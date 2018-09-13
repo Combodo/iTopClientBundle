@@ -22,7 +22,7 @@ class RequestOperationCoreApplyStimulusTest extends TestCase
     public function testGetter($key, string $class, string $outputFields, array $fields, string $comment, string $stimulus)
     {
 
-        $operation = new RequestOperationCoreApplyStimulus($key, $class, $outputFields, $fields, $comment, $stimulus);
+        $operation = new RequestOperationCoreApplyStimulus($key, $class, $outputFields, $stimulus, $comment, $fields);
 
 
         $this->assertSame('core/apply_stimulus', $operation->getOperation());

@@ -23,7 +23,7 @@ class RequestOperationCoreDeleteTest extends TestCase
     public function testGetter($key, string $class, string $outputFields, array $fields, string $comment, bool $simulate)
     {
 
-        $operation = new RequestOperationCoreDelete($key, $class, $outputFields, $fields, $comment, $simulate);
+        $operation = new RequestOperationCoreDelete($key, $class, $outputFields, $simulate, $comment, $fields);
 
 
         $this->assertSame('core/delete', $operation->getOperation());

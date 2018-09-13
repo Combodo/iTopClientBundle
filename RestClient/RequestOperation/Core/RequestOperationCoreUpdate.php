@@ -30,7 +30,7 @@ class RequestOperationCoreUpdate implements OperationInterface
         $this->FieldsInit();
     }
 
-    public function __construct($key, string $sClass, string $sOutputFields, array $aFields, string $sComment)
+    public function __construct($key, string $sClass, string $sOutputFields, string $sComment, array $aFields)
     {
         $this->init();
 

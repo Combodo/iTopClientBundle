@@ -33,7 +33,7 @@ class RequestOperationCoreGetRelated implements OperationInterface
         $this->RelationsInit();
     }
 
-    public function __construct($key, string $sClass, string $sOutputFields, array $aFields, string $sComment, string $sRelation, int $iDepth, bool  $bRedundancy, string $sDirection)
+    public function __construct($key, string $sClass, string $sOutputFields, string $sRelation, int $iDepth, bool  $bRedundancy, string $sDirection, string $sComment, array $aFields)
     {
         $this->init();
 

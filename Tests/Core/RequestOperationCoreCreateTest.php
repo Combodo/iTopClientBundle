@@ -23,7 +23,7 @@ class RequestOperationCoreCreateTest extends TestCase
     public function testGetter( string $class, string $outputFields, array $fields, string $comment)
     {
 
-        $operation = new RequestOperationCoreCreate($class, $outputFields, $fields, $comment);
+        $operation = new RequestOperationCoreCreate($class, $outputFields, $comment, $fields);
 
 
         $this->assertSame('core/create', $operation->getOperation());

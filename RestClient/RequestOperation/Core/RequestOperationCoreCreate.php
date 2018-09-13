@@ -29,7 +29,7 @@ class RequestOperationCoreCreate implements OperationInterface
         $this->fieldsInit();
     }
 
-    public function __construct(string $sClass, string $sOutputFields, array $aFields, string $sComment)
+    public function __construct(string $sClass, string $sOutputFields, string $sComment, array $aFields)
     {
         $this->init();
 

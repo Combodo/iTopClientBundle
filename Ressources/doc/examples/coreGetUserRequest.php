@@ -3,7 +3,6 @@
 require_once __DIR__.'/../../../vendor/autoload.php';
 
 use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Core\RequestOperationCoreGet;
-use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Core\RequestOperationCoreUpdate;
 use BrunoDs\ItopClientBundle\RestClient\RestClient;
 
 $httpClient = new \GuzzleHttp\Client();
@@ -20,12 +19,11 @@ $restResponse = $restClient->executeOperation($operation);
 
 
 
-echo $restResponse->asJson(JSON_PRETTY_PRINT | JSON_OBJECT_AS_ARRAY);
+echo $restResponse->asJson();
 
-//var_dump($restResponse->asArray());
+var_dump($restResponse->asArray());
 
-//var_dump($restResponse->searchOne('objects.*.fields'));
+var_dump($restResponse->searchOne('objects.*.fields'));
 
-
-//$aFields = $restResponse->searchOne('objects.*.fields');
+var_dump($restResponse->searchOne('objects.*.fields'));
 

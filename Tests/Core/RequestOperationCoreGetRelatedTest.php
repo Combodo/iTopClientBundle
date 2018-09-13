@@ -23,7 +23,7 @@ class RequestOperationCoreGetRelatedTest extends TestCase
     public function testGetter($key, $class, $outputFields, $fields, $comment, string $relation, int $depth, bool  $redundancy, string $direction)
     {
 
-        $operation = new RequestOperationCoreGetRelated($key, $class, $outputFields, $fields, $comment, $relation, $depth, $redundancy, $direction);
+        $operation = new RequestOperationCoreGetRelated($key, $class, $outputFields, $relation, $depth, $redundancy, $direction, $comment, $fields);
 
 
         $this->assertSame('core/get_related', $operation->getOperation());

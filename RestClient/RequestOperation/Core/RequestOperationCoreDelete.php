@@ -33,7 +33,7 @@ class RequestOperationCoreDelete implements OperationInterface
         $this->SimulateInit();
     }
 
-    public function __construct($key, string $sClass, string $sOutputFields, array $aFields, string $sComment, bool $bSimulate)
+    public function __construct($key, string $sClass, string $sOutputFields, bool $bSimulate, string $sComment, array $aFields)
     {
         $this->init();
 

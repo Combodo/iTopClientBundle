@@ -33,7 +33,7 @@ class RequestOperationCoreApplyStimulus implements OperationInterface
         $this->stimulusInit();
     }
 
-    public function __construct($key, string $sClass, string $sOutputFields, array $aFields, string $sComment, string $sStimulus)
+    public function __construct($key, string $sClass, string $sOutputFields, string $sStimulus, string $sComment, array $aFields)
     {
         $this->init();
 
