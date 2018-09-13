@@ -11,6 +11,18 @@ pipeline {
         sh 'php vendor/bin/phpunit  --log-junit var/test/phpunit-log.junit.xml'
       }
     }
+
+    stage('archival') {
+      parallel {
+        stage('archive code coverage report') {
+          steps {
+            archiveArtifacts(artifacts: 'var/test/phpunit-log.report/**/*.*', allowEmptyArchive: true)
+          }
+        }
+      }
+    }
+
+
   }
 
   post {
