@@ -1,5 +1,5 @@
 {
-  "name": "bruno-ds/itop-client-bundle",
+  "name": "combodo/itop-client-bundle",
   "description": "iTop rest client bundle for symfony",
   "type": "symfony-bundle",
   "license": "AGPL v3",
