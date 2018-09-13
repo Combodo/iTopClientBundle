@@ -5,7 +5,7 @@
  * Time: 12:14
  */
 
-namespace BrunoDs\ItopClientBundle\JmesPath;
+namespace Combodo\ItopClientBundle\JmesPath;
 
 interface JmesPathInterface
 {

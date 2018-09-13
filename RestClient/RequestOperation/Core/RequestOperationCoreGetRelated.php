@@ -5,16 +5,16 @@
  * Time: 12:07
  */
 
-namespace BrunoDs\ItopClientBundle\RestClient\RequestOperation\Core;
+namespace Combodo\ItopClientBundle\RestClient\RequestOperation\Core;
 
 
-use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBaseFieldsTrait;
-use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBaseKeyTrait;
-use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBaseRelationsTrait;
-use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBaseTrait;
-use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationClassTrait;
-use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Meta\RequestOperationMetaExposedPropertiesTrait;
-use BrunoDs\ItopClientBundle\RestClient\RequestOperation\OperationInterface;
+use Combodo\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBaseFieldsTrait;
+use Combodo\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBaseKeyTrait;
+use Combodo\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBaseRelationsTrait;
+use Combodo\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBaseTrait;
+use Combodo\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationClassTrait;
+use Combodo\ItopClientBundle\RestClient\RequestOperation\Meta\RequestOperationMetaExposedPropertiesTrait;
+use Combodo\ItopClientBundle\RestClient\RequestOperation\OperationInterface;
 
 class RequestOperationCoreGetRelated implements OperationInterface
 {

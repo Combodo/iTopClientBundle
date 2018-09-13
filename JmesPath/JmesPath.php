@@ -5,7 +5,7 @@
  * Time: 12:07
  */
 
-namespace BrunoDs\ItopClientBundle\JmesPath;
+namespace Combodo\ItopClientBundle\JmesPath;
 
 
 use JmesPath\Env;

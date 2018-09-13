@@ -5,11 +5,11 @@
  * Time: 16:58
  */
 
-namespace BrunoDs\ItopClientBundle\RestResponse;
+namespace Combodo\ItopClientBundle\RestResponse;
 
 
-use BrunoDs\ItopClientBundle\JmesPath\JmesPath;
-use BrunoDs\ItopClientBundle\JmesPath\JmesPathInterface;
+use Combodo\ItopClientBundle\JmesPath\JmesPath;
+use Combodo\ItopClientBundle\JmesPath\JmesPathInterface;
 use JmesPath\Env;
 
 class RestResponse

@@ -1,11 +1,11 @@
 <?php
 
-namespace BrunoDs\ItopClientBundle\RestClient;
+namespace Combodo\ItopClientBundle\RestClient;
 
 
-use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Meta\RequestOperationMetaExposedPropertiesTrait;
-use BrunoDs\ItopClientBundle\RestClient\RequestOperation\OperationInterface;
-use BrunoDs\ItopClientBundle\RestResponse\RestResponse;
+use Combodo\ItopClientBundle\RestClient\RequestOperation\Meta\RequestOperationMetaExposedPropertiesTrait;
+use Combodo\ItopClientBundle\RestClient\RequestOperation\OperationInterface;
+use Combodo\ItopClientBundle\RestResponse\RestResponse;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;

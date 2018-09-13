@@ -2,8 +2,8 @@
 
 require_once __DIR__.'/../../../vendor/autoload.php';
 
-use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Core\RequestOperationCoreUpdate;
-use BrunoDs\ItopClientBundle\RestClient\RestClient;
+use Combodo\ItopClientBundle\RestClient\RequestOperation\Core\RequestOperationCoreUpdate;
+use Combodo\ItopClientBundle\RestClient\RestClient;
 
 $httpClient = new \GuzzleHttp\Client();
 $baseUrl = 'http://localhost/itop/itop-github/webservices/rest.php';

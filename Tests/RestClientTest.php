@@ -1,12 +1,12 @@
 <?php
 
-namespace BrunoDs\ItopClientBundle\Test\RestClient;
+namespace Combodo\ItopClientBundle\Test\RestClient;
 
 
-use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Meta\RequestOperationMetaExposedPropertiesTrait;
-use BrunoDs\ItopClientBundle\RestClient\RequestOperation\OperationInterface;
-use BrunoDs\ItopClientBundle\RestClient\RestClient;
-use BrunoDs\ItopClientBundle\RestResponse\RestResponse;
+use Combodo\ItopClientBundle\RestClient\RequestOperation\Meta\RequestOperationMetaExposedPropertiesTrait;
+use Combodo\ItopClientBundle\RestClient\RequestOperation\OperationInterface;
+use Combodo\ItopClientBundle\RestClient\RestClient;
+use Combodo\ItopClientBundle\RestResponse\RestResponse;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Handler\MockHandler;
@@ -91,7 +91,7 @@ class RestClientTest extends TestCase
         $operation = $this->createOperation($operationVersion, $operationJsonData);
         $psrResponse = $restClient->executeOperation($operation);
 
-        $this->assertInstanceOf(\BrunoDs\ItopClientBundle\RestResponse\RestResponse::class, $psrResponse);
+        $this->assertInstanceOf(\Combodo\ItopClientBundle\RestResponse\RestResponse::class, $psrResponse);
     }
 
     public function defaultDataProvider(): array

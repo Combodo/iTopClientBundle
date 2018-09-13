@@ -5,10 +5,10 @@
  * Time: 10:28
  */
 
-namespace BrunoDs\ItopClientBundle\RestClient\RequestOperation\Base;
+namespace Combodo\ItopClientBundle\RestClient\RequestOperation\Base;
 
 
-use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Meta\RequestOperationMetaExposedPropertiesTrait;
+use Combodo\ItopClientBundle\RestClient\RequestOperation\Meta\RequestOperationMetaExposedPropertiesTrait;
 
 
 trait RequestOperationBaseKeyTrait

@@ -5,7 +5,7 @@
  * Time: 16:49
  */
 
-namespace BrunoDs\ItopClientBundle\RestClient\RequestOperation;
+namespace Combodo\ItopClientBundle\RestClient\RequestOperation;
 
 
 interface OperationInterface

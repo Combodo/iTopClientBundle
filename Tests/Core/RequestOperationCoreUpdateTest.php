@@ -5,11 +5,11 @@
  * Time: 17:34
  */
 
-namespace BrunoDs\ItopClientBundle\Tests\Core;
+namespace Combodo\ItopClientBundle\Tests\Core;
 
 
-use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Core\RequestOperationCoreDelete;
-use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Core\RequestOperationCoreUpdate;
+use Combodo\ItopClientBundle\RestClient\RequestOperation\Core\RequestOperationCoreDelete;
+use Combodo\ItopClientBundle\RestClient\RequestOperation\Core\RequestOperationCoreUpdate;
 use PHPUnit\Framework\TestCase;
 
 class RequestOperationCoreUpdateTest extends TestCase

@@ -39,7 +39,7 @@ class AppKernel extends Kernel
     {
         $bundles = array(
             // ...
-            new BrunoDs\ItopClientBundle\BrunoDsItopClientBundle(),
+            new Combodo\ItopClientBundle\BrunoDsItopClientBundle(),
         );
 
         // ...

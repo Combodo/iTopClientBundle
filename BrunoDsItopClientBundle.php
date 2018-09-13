@@ -5,7 +5,7 @@
  * Time: 16:51
  */
 
-namespace BrunoDs\ItopClientBundle;
+namespace Combodo\ItopClientBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

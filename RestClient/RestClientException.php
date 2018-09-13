@@ -5,7 +5,7 @@
  * Time: 16:56
  */
 
-namespace BrunoDs\ItopClientBundle\RestClient;
+namespace Combodo\ItopClientBundle\RestClient;
 
 
 class RestClientException extends \Exception

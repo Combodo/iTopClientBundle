@@ -5,10 +5,10 @@
  * Time: 17:34
  */
 
-namespace BrunoDs\ItopClientBundle\Tests\Core;
+namespace Combodo\ItopClientBundle\Tests\Core;
 
 
-use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Core\RequestOperationCoreGet;
+use Combodo\ItopClientBundle\RestClient\RequestOperation\Core\RequestOperationCoreGet;
 use PHPUnit\Framework\TestCase;
 
 class RequestOperationCoreGetTest extends TestCase

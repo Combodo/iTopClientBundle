@@ -5,7 +5,7 @@
  * Time: 10:28
  */
 
-namespace BrunoDs\ItopClientBundle\RestClient\RequestOperation\Meta;
+namespace Combodo\ItopClientBundle\RestClient\RequestOperation\Meta;
 
 
 trait RequestOperationMetaExposedPropertiesTrait

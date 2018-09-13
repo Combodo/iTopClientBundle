@@ -5,12 +5,12 @@
  * Time: 17:34
  */
 
-namespace BrunoDs\ItopClientBundle\Tests\Core;
+namespace Combodo\ItopClientBundle\Tests\Core;
 
 
-use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Core\RequestOperationCoreApplyStimulus;
-use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Core\RequestOperationCoreGet;
-use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Core\RequestOperationCoreGetRelated;
+use Combodo\ItopClientBundle\RestClient\RequestOperation\Core\RequestOperationCoreApplyStimulus;
+use Combodo\ItopClientBundle\RestClient\RequestOperation\Core\RequestOperationCoreGet;
+use Combodo\ItopClientBundle\RestClient\RequestOperation\Core\RequestOperationCoreGetRelated;
 use PHPUnit\Framework\TestCase;
 
 class RequestOperationCoreGetRelatedTest extends TestCase

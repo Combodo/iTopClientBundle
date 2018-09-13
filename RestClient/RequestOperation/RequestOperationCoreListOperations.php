@@ -5,13 +5,13 @@
  * Time: 12:07
  */
 
-namespace BrunoDs\ItopClientBundle\RestClient\RequestOperation;
+namespace Combodo\ItopClientBundle\RestClient\RequestOperation;
 
 
-use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBaseTrait;
-use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationClassTrait;
-use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Meta\RequestOperationMetaExposedPropertiesTrait;
-use BrunoDs\ItopClientBundle\RestClient\RequestOperation\OperationInterface;
+use Combodo\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBaseTrait;
+use Combodo\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationClassTrait;
+use Combodo\ItopClientBundle\RestClient\RequestOperation\Meta\RequestOperationMetaExposedPropertiesTrait;
+use Combodo\ItopClientBundle\RestClient\RequestOperation\OperationInterface;
 
 class RequestOperationCoreListOperations implements OperationInterface
 {

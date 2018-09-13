@@ -5,11 +5,11 @@
  * Time: 16:58
  */
 
-namespace BrunoDs\ItopClientBundle\Test\RestClient;
+namespace Combodo\ItopClientBundle\Test\RestClient;
 
 
-use BrunoDs\ItopClientBundle\RestResponse\RestResponse;
-use BrunoDs\ItopClientBundle\RestResponse\RestResponseException;
+use Combodo\ItopClientBundle\RestResponse\RestResponse;
+use Combodo\ItopClientBundle\RestResponse\RestResponseException;
 use GuzzleHttp\Psr7\Response;
 use JmesPath\SyntaxErrorException;
 use PHPUnit\Framework\TestCase;
