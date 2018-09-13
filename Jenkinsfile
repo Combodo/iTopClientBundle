@@ -11,10 +11,16 @@ pipeline {
         sh 'php vendor/bin/phpunit  --log-junit var/test/phpunit-log.junit.xml '
       }
     }
-    stage('archive tests') {
-      steps {
-        junit 'var/test/phpunit-log.junit.xml '
+    
+  }
+
+  post {
+      always {
+        junit 'var/test/phpunit-log.junit.xml'
+      }
+      failure {
+        slackSend(channel: "#jenkins-itop-hub", color: '#FF0000', message: "Ho no! Build failed! (${currentBuild.result}), Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
       }
     }
-  }
+
 }
