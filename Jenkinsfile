@@ -12,15 +12,15 @@ pipeline {
       }
     }
 
-    stage('archival') {
-      parallel {
-        stage('archive code coverage report') {
-          steps {
-            archiveArtifacts(artifacts: 'var/test/phpunit-log.report/**/*.*', allowEmptyArchive: true)
-          }
-        }
-      }
-    }
+//    stage('archival') {
+//      parallel {
+//        stage('archive code coverage report') {
+//          steps {
+//            archiveArtifacts(artifacts: 'var/test/phpunit-log.report/**/*.*', allowEmptyArchive: true)
+//          }
+//        }
+//      }
+//    }
 
 
   }
