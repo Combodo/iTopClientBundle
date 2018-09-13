@@ -10,8 +10,6 @@ namespace BrunoDs\ItopClientBundle\RestResponse;
 
 use BrunoDs\ItopClientBundle\JmesPath\JmesPath;
 use BrunoDs\ItopClientBundle\JmesPath\JmesPathInterface;
-use BrunoDs\ItopClientBundle\RestResponse\RestResponseException;
-use GuzzleHttp\Psr7\Response;
 use JmesPath\Env;
 
 class RestResponse
@@ -21,14 +19,9 @@ class RestResponse
     /** @var Env */
     private $jmesPath;
 
-    public function __construct(Response $psrResponse, ?JmesPathInterface $jmesPath = null)
+    public function __construct(string $sResponse, ?JmesPathInterface $jmesPath = null)
     {
-        $this->oResponse = json_decode($psrResponse->getBody(), true);
-
-//        if (! $this->oResponse instanceof \stdClass) {
-//            $jsonDecodeError = json_last_error_msg();
-//            throw new RestResponseException('Invalid server response, json_decode error: '.$jsonDecodeError);
-//        }
+        $this->oResponse = json_decode($sResponse, true);
 
         if (false == is_array($this->oResponse)) {
             $jsonDecodeError = json_last_error_msg();
@@ -53,6 +46,13 @@ class RestResponse
         return ($propertyCode != $propertyCodeLCF);
     }
 
+    /**
+     * @param $name
+     * @param $arguments
+     *
+     * @return bool
+     * @throws RestResponseException
+     */
     public function __call($name, $arguments)
     {
         $ThreeFirstLettersOfName = substr($name, 0, 3);
@@ -73,14 +73,14 @@ class RestResponse
         throw new RestResponseException("invalid method \"$name\" with params ".json_encode($arguments));
     }
 
-    private function has($name)
+    public function has($name)
     {
         return isset($this->oResponse[$name]);
     }
 
-    private function get($name)
+    public function get($name)
     {
-        if (!isset($this->oResponse[$name])) {
+        if (!$this->has($name)) {
             throw new RestResponseException("invalid key \"$name\"");
         }
 

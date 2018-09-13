@@ -47,7 +47,7 @@ class RestClient
     {
         $psrResponse = $this->getPsrResponseForOperation($operation);
 
-        $restResponse = new RestResponse($psrResponse);
+        $restResponse = new RestResponse($psrResponse->getBody());
 
         return $restResponse;
     }

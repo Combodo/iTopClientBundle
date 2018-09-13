@@ -24,7 +24,7 @@ trait RequestOperationClassTrait
     private function init()
     {
         $this->appendExposedProperty('class');
-        $this->appendExposedProperty('outputFields');
+        $this->appendExposedProperty('output_fields');
     }
 
     /**
@@ -49,6 +49,13 @@ trait RequestOperationClassTrait
     public function getOutputFields(): string
     {
         return $this->outputFields;
+    }
+    /**
+     * @return string
+     */
+    public function getOutput_fields(): string
+    {
+        return $this->getOutputFields();
     }
 
     /**

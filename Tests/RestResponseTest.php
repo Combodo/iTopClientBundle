@@ -24,7 +24,7 @@ class RestResponseTest extends TestCase
      */
     public function testBasic(Response $psrResponse, ?string $okHas, ?string $okGet, ?string $KoHas, ?string $KoGet)
     {
-        $restResponse = new RestResponse($psrResponse);
+        $restResponse = new RestResponse($psrResponse->getBody());
 
         if (!empty($okHas)) {
             $this->assertTrue($restResponse->$okHas(), "okHas must return true for this PsrResponse");
@@ -54,7 +54,7 @@ class RestResponseTest extends TestCase
             return;
         }
 
-        $restResponse = new RestResponse($psrResponse);
+        $restResponse = new RestResponse($psrResponse->getBody());
 
         $this->expectException(RestResponseException::class);
         $restResponse->$okGet('invalidParam');
@@ -72,7 +72,7 @@ class RestResponseTest extends TestCase
             return;
         }
 
-        $restResponse = new RestResponse($psrResponse);
+        $restResponse = new RestResponse($psrResponse->getBody());
 
         $this->expectException(RestResponseException::class);
         $restResponse->$okHas('invalidParam');
@@ -89,7 +89,7 @@ class RestResponseTest extends TestCase
             return;
         }
 
-        $restResponse = new \BrunoDs\ItopClientBundle\RestResponse\RestResponse($psrResponse);
+        $restResponse = new RestResponse($psrResponse->getBody());
         $setter = 's' . substr($okGet, 1);
 
         $this->expectException(RestResponseException::class);
@@ -103,7 +103,7 @@ class RestResponseTest extends TestCase
     public function testConstructException(string $expectedExceptionClassName, Response $psrResponse)
     {
         $this->expectException($expectedExceptionClassName);
-        $restResponse = new \BrunoDs\ItopClientBundle\RestResponse\RestResponse($psrResponse);
+        new RestResponse($psrResponse->getBody());
     }
 
     public function constructExceptionDataProvider(): array
