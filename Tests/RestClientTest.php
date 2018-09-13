@@ -6,7 +6,7 @@ namespace BrunoDs\ItopClientBundle\Test\RestClient;
 use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Meta\RequestOperationMetaExposedPropertiesTrait;
 use BrunoDs\ItopClientBundle\RestClient\RequestOperation\OperationInterface;
 use BrunoDs\ItopClientBundle\RestClient\RestClient;
-use BrunoDs\ItopClientBundle\RestClient\RestResponse;
+use BrunoDs\ItopClientBundle\RestResponse\RestResponse;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Handler\MockHandler;
@@ -31,17 +31,19 @@ class RestClientTest extends TestCase
      * @dataProvider defaultDataProvider
      * @dataProvider errorDataProvider
      */
-    public function testCreateRequestForOperation(string $operationVersion, array $operationExposedProperties, array $mockResponses, string $baseUrl, string $auth_user, string $auth_pwd)
+    public function testCreateRequestForOperation(string $operationVersion, string $operationJsonData, array $mockResponses, string $baseUrl, string $auth_user, string $auth_pwd)
     {
         $httpClient = $this->createClientWithResponses($mockResponses);
 
         $restClient = new RestClient($httpClient, $baseUrl, $auth_user, $auth_pwd);
 
-        $operation = $this->createOperation($operationVersion, $operationExposedProperties);
+        $operation = $this->createOperation($operationVersion, $operationJsonData);
         $request = $restClient->createRequestForOperation($operation);
 
-        parse_str($request->getBody()->getContents(), $postedValues);
+        $requestBodyContents = $request->getBody()->getContents();
+        parse_str($requestBodyContents, $postedValues);
 
+        $this->assertSame($operationJsonData, $postedValues['json_data']);
 
         $this->assertInstanceOf(Request::class, $request);
 
@@ -54,14 +56,14 @@ class RestClientTest extends TestCase
 
         $this->assertSame($auth_user, $postedValues['auth_user'], 'The correct value of auth_user is transmitted');
         $this->assertSame($auth_pwd, $postedValues['auth_pwd'], 'The correct value of auth_pwd is transmitted');
-        $this->assertSame($operationExposedProperties, $postedValues['json_data'], 'The correct value of json_data is transmitted');
+//        $this->assertSame($operationExposedProperties, $postedValues['json_data'], 'The correct value of json_data is transmitted');
     }
 
     /**
      * @dataProvider defaultDataProvider
      * @dataProvider errorDataProvider
      */
-    public function testGetResponseForOperation(string $operationVersion, array $operationExposedProperties, array $mockResponses, string $baseUrl, string $auth_user, string $auth_pwd)
+    public function testGetResponseForOperation(string $operationVersion, string $operationJsonData, array $mockResponses, string $baseUrl, string $auth_user, string $auth_pwd)
     {
 
         $httpClient = $this->createClientWithResponses($mockResponses);
@@ -69,7 +71,7 @@ class RestClientTest extends TestCase
         $restClient = new RestClient($httpClient, $baseUrl, $auth_user, $auth_pwd);
 
 
-        $operation = $this->createOperation($operationVersion, $operationExposedProperties);
+        $operation = $this->createOperation($operationVersion, $operationJsonData);
         $psrResponse = $restClient->getResponseForOperation($operation);
 
         $this->assertInstanceOf(Response::class, $psrResponse);
@@ -78,7 +80,7 @@ class RestClientTest extends TestCase
     /**
      * @dataProvider defaultDataProvider
      */
-    public function testExec(string $operationVersion, array $operationExposedProperties, array $mockResponses, string $baseUrl, string $auth_user, string $auth_pwd)
+    public function testExec(string $operationVersion, string $operationJsonData, array $mockResponses, string $baseUrl, string $auth_user, string $auth_pwd)
     {
 
         $httpClient = $this->createClientWithResponses($mockResponses);
@@ -86,10 +88,10 @@ class RestClientTest extends TestCase
         $restClient = new RestClient($httpClient, $baseUrl, $auth_user, $auth_pwd);
 
 
-        $operation = $this->createOperation($operationVersion, $operationExposedProperties);
+        $operation = $this->createOperation($operationVersion, $operationJsonData);
         $psrResponse = $restClient->executeOperation($operation);
 
-        $this->assertInstanceOf(RestResponse::class, $psrResponse);
+        $this->assertInstanceOf(\BrunoDs\ItopClientBundle\RestResponse\RestResponse::class, $psrResponse);
     }
 
     public function defaultDataProvider(): array
@@ -97,7 +99,7 @@ class RestClientTest extends TestCase
         return [
             'foo' => [
                 'operationVersion' => '1.3',
-                'operationExposedProperties' => ['foo' => 'bar','baz' => ['1', '2']],
+                'operationJsonData' => '{"foo":"bar, "baz":[1,2]}',
                 'responses' => [
                     new Response(200, [], '{"code": 0, "message": "Everything went well"}')
                 ],
@@ -107,7 +109,7 @@ class RestClientTest extends TestCase
             ],
             'bar' => [
                 'operationVersion' => '1.3',
-                'operationExposedProperties' => [1 => '2'],
+                'operationJsonData' => '{"1":2}',
                 'responses' => [
                     new Response(200, [], '{"code": 0, "message": "baz"}')
                 ],
@@ -124,7 +126,7 @@ class RestClientTest extends TestCase
 
             'error' => [
                 'operationVersion' => '1.3',
-                'operationExposedProperties' => [1 => '2'],
+                'operationJsonData' => '{"1":2}',
                 'responses' => [
                     new Response(200, [], '{"code": 42, "message": "error"}')
                 ],
@@ -160,11 +162,11 @@ class RestClientTest extends TestCase
      *
      */
 
-    private function createOperation(string $version, array $exposedProperties ): OperationInterface
+    private function createOperation(string $version, string $jsonData ): OperationInterface
     {
         $mock = $this->createMock(OperationInterface::class);
         $mock->method('getVersion')->willReturn($version);
-        $mock->method('getExposedProperties')->willReturn($exposedProperties);
+        $mock->method('getJsonData')->willReturn($jsonData);
 
         return $mock;
     }

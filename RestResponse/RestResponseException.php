@@ -5,7 +5,7 @@
  * Time: 16:58
  */
 
-namespace BrunoDs\ItopClientBundle\RestClient;
+namespace BrunoDs\ItopClientBundle\RestResponse;
 
 
 use GuzzleHttp\Psr7\Response;

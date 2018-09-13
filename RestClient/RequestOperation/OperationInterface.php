@@ -21,4 +21,10 @@ interface OperationInterface
      * @return array
      */
     public function getExposedProperties(): array ;
+
+    /**
+     * array of attributes of this operation
+     * @return array
+     */
+    public function getJsonData(): string ;
 }

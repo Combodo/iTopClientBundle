@@ -37,4 +37,8 @@ trait RequestOperationMetaExposedPropertiesTrait
         return $exposedPropertiesWithValues;
     }
 
+    public function getJsonData(): string {
+        return json_encode($this->getExposedProperties());
+    }
+
 }

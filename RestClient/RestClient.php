@@ -5,6 +5,7 @@ namespace BrunoDs\ItopClientBundle\RestClient;
 
 use BrunoDs\ItopClientBundle\RestClient\RequestOperation\Meta\RequestOperationMetaExposedPropertiesTrait;
 use BrunoDs\ItopClientBundle\RestClient\RequestOperation\OperationInterface;
+use BrunoDs\ItopClientBundle\RestResponse\RestResponse;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
@@ -29,14 +30,17 @@ class RestClient
     private $auth_user;
     /**  @var string */
     private $auth_pwd;
+    /** @var array */
+    private $extraHeaders;
 
 
-    public function __construct(ClientInterface $httpClient, string $baseUrl, string $auth_user, string $auth_pwd)
+    public function __construct(ClientInterface $httpClient, string $baseUrl, string $auth_user, string $auth_pwd, array $extraHeaders = [])
     {
         $this->httpClient = $httpClient;
         $this->baseUrl = $baseUrl;
         $this->auth_user = $auth_user;
         $this->auth_pwd = $auth_pwd;
+        $this->extraHeaders = $extraHeaders;
     }
 
     public function executeOperation(OperationInterface $operation): RestResponse
@@ -74,21 +78,26 @@ class RestClient
      */
     public function createRequestForOperation(OperationInterface $operation): Request
     {
-        $requestUri = $this->getBaseUrl().'?'.$operation->getVersion();
+        $requestUri = $this->getBaseUrl();
 
-        $json_data = $operation->getExposedProperties();
+        $json_data = $operation->getJsonData();
+
+        $requestHeaders = array_merge([
+            'Content-Type' => 'application/x-www-form-urlencoded',
+        ], $this->extraHeaders);
 
         $requestBody = http_build_query(
             [
                 'auth_user' => $this->getAuthUser(),
                 'auth_pwd'  => $this->getAuthPwd(),
+                'version'   => $operation->getVersion(),
                 'json_data' => $json_data,
             ],
             '',
             '&'
         );
 
-        $psrRequest = new Request('POST', $requestUri, [], $requestBody);
+        $psrRequest = new Request('POST', $requestUri, $requestHeaders, $requestBody);
 
 
         return $psrRequest;

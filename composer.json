@@ -14,7 +14,8 @@
   "require": {
     "php": "^7.1",
     "symfony/symfony": "^3.4",
-    "guzzlehttp/guzzle": "^6.3"
+    "guzzlehttp/guzzle": "^6.3",
+    "mtdowling/jmespath.php": "^2.4"
   },
   "require-dev": {
     "phpunit/phpunit": "^7"

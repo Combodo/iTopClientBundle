@@ -8,8 +8,8 @@
 namespace BrunoDs\ItopClientBundle\Test\RestClient;
 
 
-use BrunoDs\ItopClientBundle\RestClient\RestResponse;
-use BrunoDs\ItopClientBundle\RestClient\RestResponseException;
+use BrunoDs\ItopClientBundle\RestResponse\RestResponse;
+use BrunoDs\ItopClientBundle\RestResponse\RestResponseException;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 
@@ -89,7 +89,7 @@ class RestResponseTest extends TestCase
             return;
         }
 
-        $restResponse = new RestResponse($psrResponse);
+        $restResponse = new \BrunoDs\ItopClientBundle\RestResponse\RestResponse($psrResponse);
         $setter = 's' . substr($okGet, 1);
 
         $this->expectException(RestResponseException::class);
@@ -103,7 +103,7 @@ class RestResponseTest extends TestCase
     public function testConstructException(string $expectedExceptionClassName, Response $psrResponse)
     {
         $this->expectException($expectedExceptionClassName);
-        $restResponse = new RestResponse($psrResponse);
+        $restResponse = new \BrunoDs\ItopClientBundle\RestResponse\RestResponse($psrResponse);
     }
 
     public function constructExceptionDataProvider(): array
