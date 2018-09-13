@@ -8,7 +8,7 @@ pipeline {
     }
     stage('test') {
       steps {
-        sh 'php vendor/bin/phpunit  --log-junit var/test/phpunit-log.junit.xml '
+        sh 'php vendor/bin/phpunit  --log-junit var/test/phpunit-log.junit.xml'
       }
     }
   }

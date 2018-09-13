@@ -98,6 +98,10 @@ class RestResponseTest extends TestCase
     public function constructExceptionDataProvider(): array
     {
         return [
+            'empty_reponse' => [
+                'expectedExceptionClassName' => RestResponseException::class,
+                'psrResponse' => '{}',
+            ],
             'responseNotJson' => [
                 'expectedExceptionClassName' => RestResponseException::class,
                 'psrResponse' => '{no a valid json]',

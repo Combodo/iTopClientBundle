@@ -5,9 +5,11 @@
 /var/cache/*
 /var/logs/*
 /var/sessions/*
+/var/test/*
 !var/cache/.gitkeep
 !var/logs/.gitkeep
 !var/sessions/.gitkeep
+!var/test/.gitkeep
 
 # Parameters
 /app/config/parameters.yml

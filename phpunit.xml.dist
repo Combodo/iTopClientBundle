@@ -18,11 +18,21 @@
 
     <filter>
         <whitelist>
-            <directory>.</directory>
+            <directory>./</directory>
             <exclude> <!-- let's exclude those directories from the code coverage computation -->
                 <directory>Resources</directory>
                 <directory>Tests</directory>
+                <directory>vendor</directory>
+                <directory>var</directory>
             </exclude>
         </whitelist>
     </filter>
+
+    <logging>
+        <log type="coverage-html" target="var/test/phpunit-log.report" lowUpperBound="35" highLowerBound="70"/>
+        <log type="coverage-clover" target="var/test/phpunit-log.coverage.xml"/>
+
+        <!--<log type="junit" target="var/test/phpunit-log.junit.xml"/>-->
+        <!--<log type="testdox-html" target="var/test/phpunit-log.testdox.html"/>-->
+    </logging>
 </phpunit>
