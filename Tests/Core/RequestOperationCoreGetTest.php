@@ -33,13 +33,13 @@ class RequestOperationCoreGetTest extends TestCase
 
         $this->assertArrayHasKey('key', $operation->getExposedProperties());
         $this->assertArrayHasKey('class', $operation->getExposedProperties());
-        $this->assertArrayHasKey('outputFields', $operation->getExposedProperties());
+        $this->assertArrayHasKey('output_fields', $operation->getExposedProperties());
 
         $this->assertArrayNotHasKey('foo', $operation->getExposedProperties());
 
         $this->assertSame($key, $operation->getExposedProperties()['key']);
         $this->assertSame($sClass, $operation->getExposedProperties()['class']);
-        $this->assertSame($sOutputFields, $operation->getExposedProperties()['outputFields']);
+        $this->assertSame($sOutputFields, $operation->getExposedProperties()['output_fields']);
     }
 
     public function defaultDataProvider(): array

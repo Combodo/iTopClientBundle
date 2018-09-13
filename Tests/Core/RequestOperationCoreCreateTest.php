@@ -35,14 +35,14 @@ class RequestOperationCoreCreateTest extends TestCase
 
 
         $this->assertArrayHasKey('class', $operation->getExposedProperties());
-        $this->assertArrayHasKey('outputFields', $operation->getExposedProperties());
+        $this->assertArrayHasKey('output_fields', $operation->getExposedProperties());
         $this->assertArrayHasKey('fields', $operation->getExposedProperties());
         $this->assertArrayHasKey('comment', $operation->getExposedProperties());
 
         $this->assertArrayNotHasKey('foo', $operation->getExposedProperties());
 
         $this->assertSame($class, $operation->getExposedProperties()['class']);
-        $this->assertSame($outputFields, $operation->getExposedProperties()['outputFields']);
+        $this->assertSame($outputFields, $operation->getExposedProperties()['output_fields']);
         $this->assertSame($fields, $operation->getExposedProperties()['fields']);
         $this->assertSame($comment, $operation->getExposedProperties()['comment']);
     }

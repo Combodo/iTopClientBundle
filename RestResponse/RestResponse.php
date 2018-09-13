@@ -46,46 +46,57 @@ class RestResponse
         return ($propertyCode != $propertyCodeLCF);
     }
 
-    /**
-     * @param $name
-     * @param $arguments
-     *
-     * @return bool
-     * @throws RestResponseException
-     */
-    public function __call($name, $arguments)
+    public function getCode():int
     {
-        $ThreeFirstLettersOfName = substr($name, 0, 3);
-
-        if ('has' == $ThreeFirstLettersOfName && count($arguments) == 0) {
-            $propertyCode = substr($name, 3);
-            if ($this->isUcFirst($propertyCode)) {
-                return $this->has(lcfirst($propertyCode));
-            }
-        }
-        if ('get' == $ThreeFirstLettersOfName && count($arguments) == 0) {
-            $propertyCode = substr($name, 3);
-            if ($this->isUcFirst($propertyCode)) {
-                return $this->get(lcfirst($propertyCode));
-            }
-        }
-
-        throw new RestResponseException("invalid method \"$name\" with params ".json_encode($arguments));
+        return $this->oResponse['code'];
     }
 
-    public function has($name)
+    public function getMessage():string
     {
-        return isset($this->oResponse[$name]);
+        return $this->oResponse['message'];
     }
 
-    public function get($name)
-    {
-        if (!$this->has($name)) {
-            throw new RestResponseException("invalid key \"$name\"");
-        }
 
-        return $this->oResponse[$name];
-    }
+//    /**
+//     * @param $name
+//     * @param $arguments
+//     *
+//     * @return bool
+//     * @throws RestResponseException
+//     */
+//    public function __call($name, $arguments)
+//    {
+//        $ThreeFirstLettersOfName = substr($name, 0, 3);
+//
+//        if ('has' == $ThreeFirstLettersOfName && count($arguments) == 0) {
+//            $propertyCode = substr($name, 3);
+//            if ($this->isUcFirst($propertyCode)) {
+//                return $this->has(lcfirst($propertyCode));
+//            }
+//        }
+//        if ('get' == $ThreeFirstLettersOfName && count($arguments) == 0) {
+//            $propertyCode = substr($name, 3);
+//            if ($this->isUcFirst($propertyCode)) {
+//                return $this->get(lcfirst($propertyCode));
+//            }
+//        }
+//
+//        throw new RestResponseException("invalid method \"$name\" with params ".json_encode($arguments));
+//    }
+//
+//    public function has($name)
+//    {
+//        return isset($this->oResponse[$name]);
+//    }
+//
+//    public function get($name)
+//    {
+//        if (!$this->has($name)) {
+//            throw new RestResponseException("invalid key \"$name\"");
+//        }
+//
+//        return $this->oResponse[$name];
+//    }
 
     public function asArray()
     {

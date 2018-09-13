@@ -11,99 +11,88 @@ namespace BrunoDs\ItopClientBundle\Test\RestClient;
 use BrunoDs\ItopClientBundle\RestResponse\RestResponse;
 use BrunoDs\ItopClientBundle\RestResponse\RestResponseException;
 use GuzzleHttp\Psr7\Response;
+use JmesPath\SyntaxErrorException;
 use PHPUnit\Framework\TestCase;
 
 class RestResponseTest extends TestCase
 {
 
+
     /**
      * @dataProvider ValidDataProvider
-     * @dataProvider ValidAndInvalidDataProvider
-     * @dataProvider invalidDataProvider
      *
      */
-    public function testBasic(Response $psrResponse, ?string $okHas, ?string $okGet, ?string $KoHas, ?string $KoGet)
+    public function testGetCode(string $response, int $code, string $message, array $asArray, string $asJson, array $jMesPath)
     {
-        $restResponse = new RestResponse($psrResponse->getBody());
+        $restResponse = new RestResponse($response);
 
-        if (!empty($okHas)) {
-            $this->assertTrue($restResponse->$okHas(), "okHas must return true for this PsrResponse");
-        }
-        if (!empty($okGet)) {
-            $restResponse->$okGet();
-        }
-
-        if (!empty($KoHas)) {
-            $this->expectException(RestResponseException::class);
-            $this->assertFalse($restResponse->$KoHas(), "$KoHas must return false for this PsrResponse");
-        }
-        if (!empty($KoGet)) {
-            $this->expectException(RestResponseException::class);
-            $restResponse->$KoGet();
-        }
+        $this->assertSame($code, $restResponse->getCode(), "getCode must return $code");
     }
 
     /**
      * @dataProvider ValidDataProvider
-     * @dataProvider ValidAndInvalidDataProvider
+     *
      */
-    public function testGetWithParametersException(Response $psrResponse, ?string $okHas, ?string $okGet, ?string $KoHas, ?string $KoGet)
+    public function testGetMessage(string $response, int $code, string $message, array $asArray, string $asJson, array $jMesPath)
     {
-        if (is_null($okGet)) {
-            $this->markTestSkipped();
-            return;
-        }
+        $restResponse = new RestResponse($response);
 
-        $restResponse = new RestResponse($psrResponse->getBody());
-
-        $this->expectException(RestResponseException::class);
-        $restResponse->$okGet('invalidParam');
-
+        $this->assertSame($message, $restResponse->getMessage(), "getMessage must return \"$message\"");
     }
 
     /**
      * @dataProvider ValidDataProvider
-     * @dataProvider ValidAndInvalidDataProvider
+     *
      */
-    public function testHasWithParametersException(Response $psrResponse, ?string $okHas, ?string $okGet, ?string $KoHas, ?string $KoGet)
+    public function testAsArray(string $response, int $code, string $message, array $asArray, string $asJson, array $jMesPath)
     {
-        if (is_null($okHas)) {
-            $this->markTestSkipped();
-            return;
-        }
+        $restResponse = new RestResponse($response);
 
-        $restResponse = new RestResponse($psrResponse->getBody());
-
-        $this->expectException(RestResponseException::class);
-        $restResponse->$okHas('invalidParam');
+        $this->assertSame($asArray, $restResponse->asArray());
     }
 
     /**
      * @dataProvider ValidDataProvider
-     * @dataProvider ValidAndInvalidDataProvider
+     *
      */
-    public function testNoSetterException(Response $psrResponse, ?string $okHas, ?string $okGet, ?string $KoHas, ?string $KoGet)
+    public function testAsJson(string $response, int $code, string $message, array $asArray, string $asJson, array $jMesPath)
     {
-        if (is_null($okGet)) {
-            $this->markTestSkipped();
-            return;
-        }
+        $restResponse = new RestResponse($response);
 
-        $restResponse = new RestResponse($psrResponse->getBody());
-        $setter = 's' . substr($okGet, 1);
-
-        $this->expectException(RestResponseException::class);
-        $restResponse->$setter();
+        $this->assertSame($asJson, $restResponse->asJson(0));
     }
+
+    /**
+     * @dataProvider ValidDataProvider
+     *
+     */
+    public function testSearch(string $response, int $code, string $message, array $asArray, string $asJson, array $jMesPath)
+    {
+        $restResponse = new RestResponse($response);
+
+        $this->assertSame($jMesPath['result'], $restResponse->search($jMesPath['expression']));
+    }
+
+
+
+    public function testSearchInvalid()
+    {
+        $response = '{"code": 0, "message": "foo"}';
+        $restResponse = new RestResponse($response);
+
+        $this->expectException(SyntaxErrorException::class);
+        $restResponse->search('.][(');
+    }
+
 
 
     /**
      * @dataProvider constructExceptionDataProvider
      */
-    public function testConstructException(string $expectedExceptionClassName, Response $psrResponse)
+    public function testConstructException(string $expectedExceptionClassName, string $response)
     {
         $this->expectException($expectedExceptionClassName);
-        new RestResponse($psrResponse->getBody());
+        new RestResponse($response);
     }
 
     public function constructExceptionDataProvider(): array
@@ -111,107 +100,80 @@ class RestResponseTest extends TestCase
         return [
             'responseNotJson' => [
                 'expectedExceptionClassName' => RestResponseException::class,
-                'psrResponse' => new Response(200, [], '{no a valid json]'),
+                'psrResponse' => '{no a valid json]',
             ],
             'responseWithErrorCode' => [
                 'expectedExceptionClassName' => RestResponseException::class,
-                'psrResponse' => new Response(200, [], '{"code": 42,"message": "hu ho!"}'),
+                'psrResponse' => '{"code": 42,"message": "hu ho!"}',
             ],
         ];
     }
 
-    public function ValidDataProvider(): array
+    public function validDataProvider(): array
     {
-        return [
-            'validGetAndHasCode' => [
-                'psrResponse' => new Response(200, [], '{"code": 0, "message": "Everything went well"}'),
-                'okHas' => 'hasCode',
-                'okGet' => 'getCode',
-                'KoHas' => null,
-                'KoGet' => null,
+        $codesAndMessages = [
+            'basic' => [
+                'httpStatus' => 200,
+                'code' => 0,
+                'message' => "Everything went well",
+                'search' => [
+                    'in_response'   => ',"foo":"bar"',
+                    'has_array'     => ['foo' => 'bar'],
+                    'jMesPath'      => ['expression' => 'foo', 'result' => 'bar']
+                ]
             ],
-            'validGetAndHasMessage' => [
-                'psrResponse' => new Response(200, [], '{"code": 0, "message": "Everything went well"}'),
-                'okHas' => 'hasMessage',
-                'okGet' => 'getMessage',
-                'KoHas' => null,
-                'KoGet' => null,
+            'empty_message' => [
+                'httpStatus' => 200,
+                'code' => 0,
+                'message' => "",
+                'search' => [
+                    'in_response'   => ',"foo":"bar"',
+                    'has_array'     => ['foo' => 'bar'],
+                    'jMesPath'      => ['expression' => 'foo', 'result' => 'bar']
+                ]
             ],
-
+            'special_chars_in__message' => [
+                'httpStatus' => 200,
+                'code' => 0,
+                'message' => "I'm \"happy\" thanks gor your € & $ !! \\ / ",
+                'search' => [
+                    'in_response'   => ',"foo":"bar"',
+                    'has_array'     => ['foo' => 'bar'],
+                    'jMesPath'      => ['expression' => 'foo', 'result' => 'bar']
+                ]
+            ],
+            'complexeJmesPath' => [
+                'httpStatus' => 200,
+                'code' => 0,
+                'message' => "Everything went well",
+                'search' => [
+                    'in_response'   => ',"foo":{"bar":["baz","biz"],"buzz":["aldreen","lightyear"]}',
+                    'has_array'     => ['foo' => ['bar' => ["baz", "biz"], "buzz" => ["aldreen", "lightyear"]]],
+                    'jMesPath'      => ['expression' => 'foo.buzz[0]', 'result' => 'aldreen']
+                ]
+            ],
         ];
+
+        $dataProvider = [];
+        foreach ($codesAndMessages as $name => $params) {
+            $json = '{"code":'.$params['code'].',"message":'.json_encode($params['message']).$params['search']['in_response'].'}';
+
+            $dataProvider[$name] = [
+//                'psrResponse' => new Response($params['httpStatus'], [], $json),
+                'response' => $json,
+                'code' => $params['code'],
+                'message' => $params['message'],
+                'asArray' => array_merge(['code' => $params['code'], 'message' => $params['message']], $params['search']['has_array']),
+                'asJson' => $json,
+                'jMesPath' => $params['search']['jMesPath'],
+            ];
+        }
+
+        return$dataProvider;
     }
 
 
-    public function ValidAndInvalidDataProvider(): array
-    {
-        return [
 
-            'otherProperty' => [
-                'psrResponse' => new Response(200, [], '{"code": 0, "whoo": [1,2,3]}'),
-                'okHas' => 'hasWhoo',
-                'okGet' => 'getWhoo',
-                'KoHas' => 'hasMessage',
-                'KoGet' => 'getMessage',
-            ],
-        ];
-    }
-
-    public function invalidDataProvider(): array
-    {
-        return [
-
-            'directPropertyAccesBlocked' => [
-                'psrResponse' => new Response(200, [], '{"code": 0, "message": "Everything went well"}'),
-                'okHas' => null,
-                'okGet' => null,
-                'KoHas' => 'code',
-                'KoGet' => 'code',
-            ],
-            'property_ucFirst' => [
-                'psrResponse' => new Response(200, [], '{"code": 0, "message": "Everything went well"}'),
-                'okHas' => null,
-                'okGet' => null,
-                'KoHas' => 'hascode',
-                'KoGet' => 'getcode',
-            ],
-            'lcFirst' => [
-                'psrResponse' => new Response(200, [], '{"code": 0, "message": "Everything went well"}'),
-                'okHas' => null,
-                'okGet' => null,
-                'KoHas' => 'HasCode',
-                'KoGet' => 'Getcode',
-            ],
-            'noUpperCase' => [
-                'psrResponse' => new Response(200, [], '{"code": 0, "message": "Everything went well"}'),
-                'okHas' => null,
-                'okGet' => null,
-                'KoHas' => 'hasCODE',
-                'KoGet' => 'getCODE',
-            ],
-            'notInTheMiddle' => [
-                'psrResponse' => new Response(200, [], '{"code": 0, "message": "Everything went well"}'),
-                'okHas' => null,
-                'okGet' => null,
-                'KoHas' => 'codeHasCode',
-                'KoGet' => 'codeGetCode',
-            ],
-            'noYoda' => [
-                'psrResponse' => new Response(200, [], '{"code": 0, "message": "Everything went well"}'),
-                'okHas' => null,
-                'okGet' => null,
-                'KoHas' => 'codeHas',
-                'KoGet' => 'codeGet',
-            ],
-            'noSuffix' => [
-                'psrResponse' => new Response(200, [], '{"code": 0, "message": "Everything went well"}'),
-                'okHas' => null,
-                'okGet' => null,
-                'KoHas' => 'hasCodefoo',
-                'KoGet' => 'getCodefoo',
-            ],
-
-        ];
-    }
 
 
 }

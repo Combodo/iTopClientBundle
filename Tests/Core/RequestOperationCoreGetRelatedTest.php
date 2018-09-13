@@ -41,7 +41,7 @@ class RequestOperationCoreGetRelatedTest extends TestCase
 
         $this->assertArrayHasKey('key', $operation->getExposedProperties());
         $this->assertArrayHasKey('class', $operation->getExposedProperties());
-        $this->assertArrayHasKey('outputFields', $operation->getExposedProperties());
+        $this->assertArrayHasKey('output_fields', $operation->getExposedProperties());
         $this->assertArrayHasKey('fields', $operation->getExposedProperties());
         $this->assertArrayHasKey('comment', $operation->getExposedProperties());
         $this->assertArrayHasKey('relation', $operation->getExposedProperties());
@@ -53,7 +53,7 @@ class RequestOperationCoreGetRelatedTest extends TestCase
 
         $this->assertSame($key, $operation->getExposedProperties()['key']);
         $this->assertSame($class, $operation->getExposedProperties()['class']);
-        $this->assertSame($outputFields, $operation->getExposedProperties()['outputFields']);
+        $this->assertSame($outputFields, $operation->getExposedProperties()['output_fields']);
         $this->assertSame($fields, $operation->getExposedProperties()['fields']);
         $this->assertSame($comment, $operation->getExposedProperties()['comment']);
         $this->assertSame($relation, $operation->getExposedProperties()['relation']);
