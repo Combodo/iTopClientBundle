@@ -23,7 +23,7 @@ pipeline {
 
           stage('php mess detector') {
             steps {
-              sh 'php vendvendor/bin/phpmd src/ xml codesize,unusedcode,naming,cleancode,controversial,design  --reportfile var/test/phpmd.xml || echo "oups exit code $?"'
+              sh 'php vendor/bin/phpmd src/ xml codesize,unusedcode,naming,cleancode,controversial,design  --reportfile var/test/phpmd.xml || echo "oups exit code $?"'
             }
           }
 
