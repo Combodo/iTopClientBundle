@@ -29,7 +29,7 @@ pipeline {
 
           stage('composer security-checker') {
             steps {
-              sh 'php vendor/bin/security-checker'
+              sh 'php vendor/bin/security-checker security:check'
             }
           }
 
