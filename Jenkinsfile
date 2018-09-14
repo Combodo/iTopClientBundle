@@ -29,13 +29,7 @@ pipeline {
 
           stage('composer security-checker') {
             steps {
-              try {
-                sh 'php vendor/bin/security-checker'
-              } catch(err) {
-                echo "HAAAAA!! there is a vulnerability found by security-checker!!"
-                slackSend(channel: "#jenkins-itop-hub", color: '#FF0000', message: "RED ALERT! There is a vulnerability found by security-checker!! run `vendor/bin/security-checker security:check` locally to find it! (${currentBuild.result}), Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-                throw err
-              }
+              sh 'php vendor/bin/security-checker'
             }
           }
 
