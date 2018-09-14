@@ -38,7 +38,8 @@ pipeline {
             unhealthyTarget: [methodCoverage: 50, conditionalCoverage: 50, statementCoverage: 50], // optional, default is none
             failingTarget: [methodCoverage: 0, conditionalCoverage: 0, statementCoverage: 0]     // optional, default is none
         ])
-        checkstyle defaultEncoding: '', healthy: '75', pattern: 'var/test/checkstyle.xml', unHealthy: '20'
+        //checkstyle defaultEncoding: '', healthy: '75', pattern: 'var/test/checkstyle.xml', unHealthy: '20'
+        checkstyle pattern: 'var/test/checkstyle.xml', canComputeNew: false, defaultEncoding: '', healthy: '', unHealthy: ''
       }
       failure {
         slackSend(channel: "#jenkins-itop-hub", color: '#FF0000', message: "Ho no! Build failed! (${currentBuild.result}), Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
