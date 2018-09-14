@@ -15,7 +15,7 @@ pipeline {
           }
           stage('checkstyle') {
             steps {
-              sh 'php vendor/bin/phpcs  --report=checkstyle --report-file=var/test/checkstyle.xml'
+              sh 'php vendor/bin/phpcs  --report=checkstyle --report-file=var/test/checkstyle.xml || echo "oups exit code $?"'
             }
           }
         }
