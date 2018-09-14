@@ -1,8 +1,9 @@
 <?php
 
-require_once __DIR__.'/../../../vendor/autoload.php';
+require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use Combodo\ItopClientBundle\RestClient\RequestOperation\Core\RequestOperationCoreGet;
+use Combodo\ItopClientBundle\RestClient\RequestOperation\RequestOperationCoreListOperations;
 use Combodo\ItopClientBundle\RestClient\RestClient;
 
 $httpClient = new \GuzzleHttp\Client();
@@ -13,17 +14,16 @@ $auth_pwd = 'api';
 $restClient = new RestClient($httpClient, $baseUrl, $auth_user, $auth_pwd, ['Cookie' => 'XDEBUG_SESSION=XDEBUG_ECLIPSE;']);
 
 
-$operation = new RequestOperationCoreGet('SELECT UserRequest', 'UserRequest', 'ref, org_id');
+$operation = new RequestOperationCoreListOperations();
 
 $restResponse = $restClient->executeOperation($operation);
 
 
 
+echo $restResponse->asJson();
+
+var_dump($restResponse->asArray());
+
+var_dump($restResponse->search('operations[].{verb:verb, description:description}'));
 
 
-foreach($restResponse->search('objects|keys(@)') as $userRequestKey) {
-    echo "\n - $userRequestKey => ". $restResponse->search('objects."'.$userRequestKey.'".fields.title');
-}
-
-
-//var_dump($restResponse->search('objects."UserRequest::101".fields.title'));

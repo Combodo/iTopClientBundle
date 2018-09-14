@@ -7,20 +7,21 @@ pipeline {
       }
     }
     stage('test') {
-      steps {
-        sh 'php vendor/bin/phpunit  --log-junit var/test/phpunit-log.junit.xml'
-      }
+      parallel {
+          stage('phpunit') {
+            steps {
+              sh 'php vendor/bin/phpunit  --log-junit var/test/phpunit-log.junit.xml'
+            }
+          }
+          stage('checkstyle') {
+            steps {
+              sh 'php vendor/bin/phpcs  --report=checkstyle > var/test/checkstyle.xml'
+            }
+          }
+        }
     }
 
-//    stage('archival') {
-//      parallel {
-//        stage('archive code coverage report') {
-//          steps {
-//            archiveArtifacts(artifacts: 'var/test/phpunit-log.report/**/*.*', allowEmptyArchive: true)
-//          }
-//        }
-//      }
-//    }
+
 
 
   }
@@ -28,6 +29,7 @@ pipeline {
   post {
       always {
         junit 'var/test/phpunit-log.junit.xml'
+        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'var/test/phpunit-log.report', reportFiles: 'index.html', reportName: 'code coverage', reportTitles: ''])
         step([
             $class: 'CloverPublisher',
             cloverReportDir: 'var/test/phpunit-log.report',
@@ -36,6 +38,7 @@ pipeline {
             unhealthyTarget: [methodCoverage: 50, conditionalCoverage: 50, statementCoverage: 50], // optional, default is none
             failingTarget: [methodCoverage: 0, conditionalCoverage: 0, statementCoverage: 0]     // optional, default is none
         ])
+        checkstyle defaultEncoding: '', healthy: '75', pattern: 'var/test/checkstyle.xml', unHealthy: '20'
       }
       failure {
         slackSend(channel: "#jenkins-itop-hub", color: '#FF0000', message: "Ho no! Build failed! (${currentBuild.result}), Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")

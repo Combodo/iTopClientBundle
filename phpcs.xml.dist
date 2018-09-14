@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<ruleset name="PHP_CodeSniffer">
+    <description>The coding standard.</description>
+    <!-- inpired from : https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xml.dist -->
+
+    <file>src/</file>
+
+    <exclude-pattern>/Tests/*</exclude-pattern>
+    <exclude-pattern>/var/*</exclude-pattern>
+    <exclude-pattern>/vendor/*</exclude-pattern>
+
+    <arg name="basepath" value="."/>
+    <arg name="colors" />
+    <arg name="parallel" value="75" />
+    <arg value="np"/>
+
+
+    <!-- Don't hide tokenizer exceptions -->
+    <rule ref="Internal.Tokenizer.Exception">
+        <type>error</type>
+    </rule>
+
+    <!-- coding standards -->
+    <rule ref="PSR1"></rule>
+    <rule ref="PSR2"></rule>
+
+
+</ruleset>
