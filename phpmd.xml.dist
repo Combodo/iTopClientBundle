@@ -17,4 +17,7 @@
 
     <!-- Unused Code Rules, see http://phpmd.org/rules/controversial.html -->
     <rule ref="rulesets/controversial.xml" />
+
+    <!-- Import the entire cyclomatic complexity rule -->
+        <rule ref="rulesets/codesize.xml/CyclomaticComplexity" />
 </ruleset>

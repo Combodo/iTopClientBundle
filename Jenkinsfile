@@ -8,22 +8,27 @@ pipeline {
     }
     stage('test') {
       parallel {
+
           stage('phpunit') {
             steps {
               sh 'php vendor/bin/phpunit  --log-junit var/test/phpunit-log.junit.xml'
             }
           }
+
           stage('checkstyle') {
             steps {
               sh 'php vendor/bin/phpcs  --report=checkstyle --report-file=var/test/checkstyle.xml || echo "oups exit code $?"'
             }
           }
+
+          stage('php mess detector') {
+            steps {
+              sh 'php vendvendor/bin/phpmd src/ xml codesize,unusedcode,naming,cleancode,controversial,design  --reportfile var/test/phpmd.xml || echo "oups exit code $?"'
+            }
+          }
+
         }
     }
-
-
-
-
   }
 
   post {
@@ -39,7 +44,9 @@ pipeline {
             failingTarget: [methodCoverage: 0, conditionalCoverage: 0, statementCoverage: 0]     // optional, default is none
         ])
         //checkstyle defaultEncoding: '', healthy: '75', pattern: 'var/test/checkstyle.xml', unHealthy: '20'
-        checkstyle pattern: 'var/test/checkstyle.xml', canComputeNew: false, defaultEncoding: '', healthy: '', unHealthy: ''
+        checkstyle  pattern: 'var/test/checkstyle.xml', canComputeNew: false, defaultEncoding: '', healthy: '', unHealthy: ''
+        pmd         pattern: 'var/test/checkstyle.xml', canComputeNew: false, defaultEncoding: '', healthy: '', unHealthy: ''
+
       }
       failure {
         slackSend(channel: "#jenkins-itop-hub", color: '#FF0000', message: "Ho no! Build failed! (${currentBuild.result}), Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
