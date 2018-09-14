@@ -28,5 +28,10 @@
     "psr-4": {
       "Combodo\\ItopClientBundle\\":["src/", "Tests/"]
     }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "master"
+    }
   }
 }
