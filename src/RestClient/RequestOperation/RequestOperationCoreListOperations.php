@@ -7,7 +7,6 @@
 
 namespace Combodo\ItopClientBundle\RestClient\RequestOperation;
 
-
 use Combodo\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBaseTrait;
 use Combodo\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationClassTrait;
 use Combodo\ItopClientBundle\RestClient\RequestOperation\Meta\RequestOperationMetaExposedPropertiesTrait;
@@ -23,6 +22,4 @@ class RequestOperationCoreListOperations implements OperationInterface
     {
         $this->init();
     }
-
-
 }

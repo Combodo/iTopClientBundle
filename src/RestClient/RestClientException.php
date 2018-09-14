@@ -7,7 +7,6 @@
 
 namespace Combodo\ItopClientBundle\RestClient;
 
-
 class RestClientException extends \Exception
 {
 

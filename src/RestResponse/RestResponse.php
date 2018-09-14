@@ -7,7 +7,6 @@
 
 namespace Combodo\ItopClientBundle\RestResponse;
 
-
 use Combodo\ItopClientBundle\JmesPath\JmesPath;
 use Combodo\ItopClientBundle\JmesPath\JmesPathInterface;
 use JmesPath\Env;
@@ -36,7 +35,6 @@ class RestResponse
         }
 
         $this->jmesPath = $jmesPath ?? new JmesPath();
-
     }
 
     private function isUcFirst(string $propertyCode)

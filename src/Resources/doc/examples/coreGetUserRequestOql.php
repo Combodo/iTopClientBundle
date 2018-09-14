@@ -21,7 +21,7 @@ $restResponse = $restClient->executeOperation($operation);
 
 
 
-foreach($restResponse->search('objects|keys(@)') as $userRequestKey) {
+foreach ($restResponse->search('objects|keys(@)') as $userRequestKey) {
     echo "\n - $userRequestKey => ". $restResponse->search('objects."'.$userRequestKey.'".fields.title');
 }
 

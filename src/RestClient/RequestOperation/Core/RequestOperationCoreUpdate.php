@@ -7,14 +7,12 @@
 
 namespace Combodo\ItopClientBundle\RestClient\RequestOperation\Core;
 
-
 use Combodo\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBaseFieldsTrait;
 use Combodo\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBaseKeyTrait;
 use Combodo\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBaseTrait;
 use Combodo\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationClassTrait;
 use Combodo\ItopClientBundle\RestClient\RequestOperation\Meta\RequestOperationMetaExposedPropertiesTrait;
 use Combodo\ItopClientBundle\RestClient\RequestOperation\OperationInterface;
-
 
 class RequestOperationCoreUpdate implements OperationInterface
 {
@@ -46,6 +44,4 @@ class RequestOperationCoreUpdate implements OperationInterface
         $this->setFields($aFields);
         $this->setComment($sComment);
     }
-
-
 }

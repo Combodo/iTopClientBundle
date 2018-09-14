@@ -7,9 +7,7 @@
 
 namespace Combodo\ItopClientBundle\RestClient\RequestOperation\Base;
 
-
 use Combodo\ItopClientBundle\RestClient\RequestOperation\Meta\RequestOperationMetaExposedPropertiesTrait;
-
 
 trait RequestOperationBaseStimulusTrait
 {
@@ -41,6 +39,4 @@ trait RequestOperationBaseStimulusTrait
     {
         $this->stimulus = $stimulus;
     }
-
-
 }

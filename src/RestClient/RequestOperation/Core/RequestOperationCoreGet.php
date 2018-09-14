@@ -7,7 +7,6 @@
 
 namespace Combodo\ItopClientBundle\RestClient\RequestOperation\Core;
 
-
 use Combodo\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBaseKeyTrait;
 use Combodo\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBaseTrait;
 use Combodo\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationClassTrait;
@@ -39,8 +38,5 @@ class RequestOperationCoreGet implements OperationInterface
 
         $this->setClass($sClass);
         $this->setOutputFields($sOutputFields);
-
     }
-
-
 }

@@ -7,7 +7,6 @@
 
 namespace Combodo\ItopClientBundle\JmesPath;
 
-
 use JmesPath\Env;
 
 class JmesPath implements JmesPathInterface
@@ -40,5 +39,4 @@ class JmesPath implements JmesPathInterface
     {
         return Env::cleanCompileDir();
     }
-
 }

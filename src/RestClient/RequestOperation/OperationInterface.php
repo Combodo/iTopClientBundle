@@ -7,7 +7,6 @@
 
 namespace Combodo\ItopClientBundle\RestClient\RequestOperation;
 
-
 interface OperationInterface
 {
     /**

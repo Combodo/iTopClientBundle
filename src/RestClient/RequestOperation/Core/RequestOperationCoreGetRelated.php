@@ -7,7 +7,6 @@
 
 namespace Combodo\ItopClientBundle\RestClient\RequestOperation\Core;
 
-
 use Combodo\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBaseFieldsTrait;
 use Combodo\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBaseKeyTrait;
 use Combodo\ItopClientBundle\RestClient\RequestOperation\Base\RequestOperationBaseRelationsTrait;

@@ -7,9 +7,7 @@
 
 namespace Combodo\ItopClientBundle\RestClient\RequestOperation\Base;
 
-
 use Combodo\ItopClientBundle\RestClient\RequestOperation\Meta\RequestOperationMetaExposedPropertiesTrait;
-
 
 trait RequestOperationBaseRelationsTrait
 {
@@ -101,6 +99,4 @@ trait RequestOperationBaseRelationsTrait
     {
         $this->direction = $direction;
     }
-
-
 }

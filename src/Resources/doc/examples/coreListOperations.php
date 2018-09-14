@@ -25,5 +25,3 @@ echo $restResponse->asJson();
 var_dump($restResponse->asArray());
 
 var_dump($restResponse->search('operations[].{verb:verb, description:description}'));
-
-

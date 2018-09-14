@@ -26,4 +26,3 @@ var_dump($restResponse->asArray());
 var_dump($restResponse->search('objects.*.fields'));
 
 var_dump($restResponse->searchOne('objects.*.fields'));
-

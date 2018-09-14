@@ -7,7 +7,6 @@
 
 namespace Combodo\ItopClientBundle\RestClient\RequestOperation\Meta;
 
-
 trait RequestOperationMetaExposedPropertiesTrait
 {
     /** @var array */
@@ -28,8 +27,7 @@ trait RequestOperationMetaExposedPropertiesTrait
     public function getExposedProperties(): array
     {
         $exposedPropertiesWithValues = [];
-        foreach ($this->exposedPropertiesList as $propertyName)
-        {
+        foreach ($this->exposedPropertiesList as $propertyName) {
             $getter = 'get'.ucfirst($propertyName);
             $exposedPropertiesWithValues[$propertyName] = $this->$getter();
         }
@@ -37,8 +35,8 @@ trait RequestOperationMetaExposedPropertiesTrait
         return $exposedPropertiesWithValues;
     }
 
-    public function getJsonData(): string {
+    public function getJsonData(): string
+    {
         return json_encode($this->getExposedProperties());
     }
-
 }

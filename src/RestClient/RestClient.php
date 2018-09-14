@@ -2,14 +2,12 @@
 
 namespace Combodo\ItopClientBundle\RestClient;
 
-
 use Combodo\ItopClientBundle\RestClient\RequestOperation\Meta\RequestOperationMetaExposedPropertiesTrait;
 use Combodo\ItopClientBundle\RestClient\RequestOperation\OperationInterface;
 use Combodo\ItopClientBundle\RestResponse\RestResponse;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-
 
 /**
  * Created by Bruno DA SILVA, working for Combodo
@@ -137,6 +135,4 @@ class RestClient
     {
         return $this->auth_pwd;
     }
-
-
 }

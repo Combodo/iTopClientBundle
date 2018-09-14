@@ -9,7 +9,6 @@ namespace Combodo\ItopClientBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-
 class BrunoDsItopClientBundle extends Bundle
 {
 

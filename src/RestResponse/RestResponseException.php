@@ -7,7 +7,6 @@
 
 namespace Combodo\ItopClientBundle\RestResponse;
 
-
 use GuzzleHttp\Psr7\Response;
 
 class RestResponseException extends \Exception
