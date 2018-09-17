@@ -54,7 +54,7 @@ class RestResponse
         return $this->oResponse['message'];
     }
 
-
+// this part of the api is removed because it is so wrong about how to handle this! (nothing is at the root) !
 //    /**
 //     * @param $name
 //     * @param $arguments
