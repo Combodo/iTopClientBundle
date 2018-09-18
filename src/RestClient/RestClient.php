@@ -8,6 +8,8 @@ use Combodo\ItopClientBundle\RestResponse\RestResponse;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
 
 /**
  * Created by Bruno DA SILVA, working for Combodo
@@ -30,15 +32,27 @@ class RestClient
     private $auth_pwd;
     /** @var array */
     private $extraHeaders;
+    /** @var null|LoggerInterface */
+    private $logger;
 
-
-    public function __construct(ClientInterface $httpClient, string $baseUrl, string $auth_user, string $auth_pwd, array $extraHeaders = [])
+    /**
+     * RestClient constructor.
+     *
+     * @param ClientInterface      $httpClient
+     * @param string               $baseUrl
+     * @param string               $auth_user
+     * @param string               $auth_pwd
+     * @param null|array           $extraHeaders
+     * @param null|LoggerInterface $logger
+     */
+    public function __construct(ClientInterface $httpClient, string $baseUrl, string $auth_user, string $auth_pwd, ?array $extraHeaders = [], ?LoggerInterface $logger = null)
     {
         $this->httpClient = $httpClient;
         $this->baseUrl = $baseUrl;
         $this->auth_user = $auth_user;
         $this->auth_pwd = $auth_pwd;
         $this->extraHeaders = $extraHeaders;
+        $this->logger = $logger;
     }
 
     public function executeOperation(OperationInterface $operation): RestResponse
@@ -62,6 +76,24 @@ class RestClient
         $psrRequest = $this->createRequestForOperation($operation);
 
         $response = $this->httpClient->send($psrRequest);
+
+        if ($this->logger) {
+            $this->log(
+                LogLevel::DEBUG,
+                'response obtained',
+                [
+                    'status code' => $response->getStatusCode(),
+                    'status reason' => $response->getReasonPhrase(),
+                    'headers' => $response->getHeaders(),
+                    'body' => $response->getBody()->getContents(),
+
+                ]
+            );
+        }
+
+        if (200 != $response->getStatusCode()) {
+            throw new RestClientException('remote Server Error: '. $response->getStatusCode().' '.$response->getReasonPhrase());
+        }
 
         return $response;
     }
@@ -97,6 +129,20 @@ class RestClient
 
         $psrRequest = new Request('POST', $requestUri, $requestHeaders, $requestBody);
 
+        if ($this->logger) {
+            $this->log(
+                LogLevel::DEBUG,
+                'request created',
+                [
+                    'uri'       => $requestUri,
+                    'version'   => $operation->getVersion(),
+                    'headers'   => $requestHeaders,
+                    'raw_data' => $operation->getExposedProperties(),
+                    //I prefer to be overcautious and to not use the body stored by the psrRequest in case of an additional escaping that would end in no password censorship...
+                    'body_censored' => str_replace(http_build_query(['auth_pwd'  => $this->getAuthPwd()]), http_build_query(['auth_pwd'  => 'xxxxxx']), $requestBody),
+                ]
+            );
+        }
 
         return $psrRequest;
     }
@@ -134,5 +180,16 @@ class RestClient
     private function getAuthPwd(): string
     {
         return $this->auth_pwd;
+    }
+
+    private function log($level, string $message, array $context = array())
+    {
+        if (!$this->logger) {
+            return;
+        }
+
+        $message = 'Itop REST client: '.$message;
+
+        return $this->logger->log($level, $message, $context);
     }
 }
