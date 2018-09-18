@@ -7,7 +7,6 @@
 
 namespace Combodo\ItopClientBundle\DependencyInjection;
 
-
 use Combodo\ItopClientBundle\RestClient\RestClient;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -25,9 +24,9 @@ class CombodoItopClientExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         //the default http client (should probalby always be used, but this decoupling come at no cost)
-        $defaultHttpClient = new Definition(\GuzzleHttp\Client::class,[]);
+        $defaultHttpClient = new Definition(\GuzzleHttp\Client::class, []);
         $defaultHttpClient->setLazy(true);
-        $container->setDefinition('itop_client.default_http_client',$defaultHttpClient);
+        $container->setDefinition('itop_client.default_http_client', $defaultHttpClient);
 
         //each server configured
         foreach ($config['servers'] as $alias => $serverConfig) {
@@ -58,5 +57,4 @@ class CombodoItopClientExtension extends Extension
             $container->setDefinition($serviceName, $definition);
         }
     }
-
 }
