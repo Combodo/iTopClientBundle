@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../../../vendor/autoload.php';
+require_once __DIR__ . '/../../../../vendor/autoload.php';
 
 use Combodo\ItopClientBundle\RestClient\RequestOperation\Core\RequestOperationCoreUpdate;
 use Combodo\ItopClientBundle\RestClient\RestClient;
