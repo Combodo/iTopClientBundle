@@ -2,7 +2,7 @@
   "name": "combodo/itop-client-bundle",
   "description": "iTop rest client bundle for symfony",
   "type": "symfony-bundle",
-  "license": "AGPL v3",
+  "license": "AGPL-3.0-only",
 
   "authors": [
       {
