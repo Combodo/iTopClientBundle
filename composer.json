@@ -13,7 +13,7 @@
 
   "require": {
     "php": "^7.1",
-    "symfony/symfony": "^3.4",
+    "symfony/symfony": "^3.4 || ^4.4",
     "guzzlehttp/guzzle": "^6.3",
     "mtdowling/jmespath.php": "^2.4"
   },
