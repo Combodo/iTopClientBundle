@@ -28,10 +28,11 @@ class CombodoItopClientExtension extends Extension
         $defaultHttpClient = new Definition(\GuzzleHttp\Client::class,[]);
         $defaultHttpClient->setLazy(true);
         $container->setDefinition('itop_client.default_http_client',$defaultHttpClient);
-
+        $bindings = $container->getDefinition('itop_client.default_http_client')->getBindings();
         //each server configured
         foreach ($config['servers'] as $alias => $serverConfig) {
             $serviceName = sprintf('itop_client.rest_client.%s', $alias);
+            $bindingVarName = sprintf('itopClient%s', ucfirst($alias));
 
             if (empty($serverConfig['logger'])) {
                 $logger = null;
@@ -56,7 +57,10 @@ class CombodoItopClientExtension extends Extension
             );
             $definition->setLazy(true);
             $container->setDefinition($serviceName, $definition);
+
+            $bindings[$bindingVarName] = $definition;
         }
+        $container->getDefinition('itop_client.default_http_client')->setBindings($bindings);
     }
 
 }
