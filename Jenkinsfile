@@ -35,9 +35,6 @@ pipeline {
   post {
       always {
         junit 'var/test/phpunit-log.junit.xml'
-      
-        checkstyle  pattern: 'var/test/checkstyle.xml', canComputeNew: false, defaultEncoding: '', healthy: '75', unHealthy: '10'
-        pmd         pattern: 'var/test/phpmd.xml'     , canComputeNew: false, defaultEncoding: '', healthy: '', unHealthy: ''
 
       }
       failure {
