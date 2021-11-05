@@ -35,7 +35,7 @@ pipeline {
   post {
       always {
         junit 'var/test/phpunit-log.junit.xml'
-        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'var/test/phpunit-log.report', reportFiles: 'index.html', reportName: 'code coverage', reportTitles: ''])
+        
         step([
             $class: 'CloverPublisher',
             cloverReportDir: 'var/test/phpunit-log.report',
