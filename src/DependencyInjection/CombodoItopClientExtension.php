@@ -55,6 +55,7 @@ class CombodoItopClientExtension extends Extension
                 ]
             );
             $definition->setLazy(true);
+	        $definition->setPublic(true);
             $container->setDefinition($serviceName, $definition);
         }
     }
