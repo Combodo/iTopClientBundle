@@ -16,7 +16,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder('combodo_itop_client');
-        $rootNode = $treeBuilder;
+	    $rootNode = $treeBuilder->getRootNode();
 
         $rootNode
             ->children()
