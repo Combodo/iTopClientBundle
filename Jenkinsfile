@@ -28,13 +28,6 @@ pipeline {
             }
           }
 
-          stage('composer security-checker') {
-            steps {
-              sh 'php vendor/bin/security-checker security:check'
-            }
-          }
-
-
         }
     }
   }
@@ -42,17 +35,6 @@ pipeline {
   post {
       always {
         junit 'var/test/phpunit-log.junit.xml'
-        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'var/test/phpunit-log.report', reportFiles: 'index.html', reportName: 'code coverage', reportTitles: ''])
-        step([
-            $class: 'CloverPublisher',
-            cloverReportDir: 'var/test/phpunit-log.report',
-            cloverReportFileName: 'var/test/phpunit-log.coverage.xml',
-            healthyTarget: [methodCoverage: 70, conditionalCoverage: 80, statementCoverage: 80], // optional, default is: method=70, conditional=80, statement=80
-            unhealthyTarget: [methodCoverage: 50, conditionalCoverage: 50, statementCoverage: 50], // optional, default is none
-            failingTarget: [methodCoverage: 0, conditionalCoverage: 0, statementCoverage: 0]     // optional, default is none
-        ])
-        checkstyle  pattern: 'var/test/checkstyle.xml', canComputeNew: false, defaultEncoding: '', healthy: '75', unHealthy: '10'
-        pmd         pattern: 'var/test/phpmd.xml'     , canComputeNew: false, defaultEncoding: '', healthy: '', unHealthy: ''
 
       }
       failure {
