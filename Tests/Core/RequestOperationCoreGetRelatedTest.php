@@ -72,8 +72,8 @@ class RequestOperationCoreGetRelatedTest extends TestCase
                 'fields' => ['4'],
                 'comment' => '5',
                 'relation' => '6',
-                'depth' => '7',
-                'redundancy' => '8',
+                'depth' => 7,
+                'redundancy' => true,
                 'direction' => '9',
             ],
             'realistic values' => [

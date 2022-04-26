@@ -78,7 +78,7 @@ class RequestOperationCoreDeleteTest extends TestCase
                 'sOutputFields' => '',
                 'fields' => [],
                 'comment' => '',
-                'simulate' => 1,
+                'simulate' => true,
             ],
 
         ];
