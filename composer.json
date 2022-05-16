@@ -14,6 +14,7 @@
   "require": {
     "php": "^7.1|^8",
     "guzzlehttp/guzzle": "^6.3",
+    "guzzlehttp/psr7": "^1.8.4",
     "mtdowling/jmespath.php": "^2.4"
   },
   "require-dev": {
